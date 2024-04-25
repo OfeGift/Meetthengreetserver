@@ -1,0 +1,36 @@
+#MongDB builder to start database first and run application second
+version: '3.9'
+
+services:
+
+  mongodb:
+    image: mongo:latest
+    #Must use linux suitable platform while building
+#    platform: linux/amd64
+    restart: always
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+
+  ktor:
+    build: .
+    image: ofegift/meetthengreet-main.0.1.2
+#    platform: linux/amd64
+    restart: always
+    container_name: meetthengreet-main-container
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      MONGODB_HOST: mongodb
+      MONGODB_URI: mongodb://mongodb:27017
+      DB_NAME: meet_then_greet
+      NAME: WSJmain
+      JWT_SECRET: wsjmeetthegreet
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb: {}

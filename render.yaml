@@ -1,0 +1,35 @@
+services:
+  - name: mongodb
+    env: {}
+    image: mongo:latest
+    instanceType: AUTO
+    plan: starter
+    ports:
+      - port: 27017
+        protocol: TCP
+    volumes:
+      - name: mongodb
+        path: /data/db
+
+  - name: ktor
+    env:
+      - key: PORT
+        value: "8080"
+      - key: MONGODB_HOST
+        value: mongodb
+      - key: MONGODB_URI
+        value: mongodb://mongodb:27017
+      - key: DB_NAME
+        value: meet_then_greet
+      - key: NAME
+        value: WSJmain
+      - key: JWT_SECRET
+        value: wsjmeetthegreet
+    image: "ofegift/meetthengreet-main:0.1.2"
+    instanceType: AUTO
+    plan: starter
+    ports:
+      - port: 8080
+        protocol: TCP
+    dependsOn:
+      - mongodb

@@ -55,8 +55,17 @@ dependencies {
     sshAntTask("org.apache.ant:ant-jsch:1.10.12")
 }
 
+/**For Docker and any Plugin packaging*/
+tasks{
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "com.wsj.ApplicationKt"))
+        }
+    }
+}
+
 ktor {
     fatJar {
-        archiveFileName.set("meetthengreetc.jar")
+        archiveFileName.set("com.wsj.meetthengreet-server-$version-all.jar")
     }
 }

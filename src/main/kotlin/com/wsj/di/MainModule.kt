@@ -14,8 +14,9 @@ import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
 val mainModule = module {
+    val clientConnection = "mongodb://mongodb:27017" //Default without docker is -> "mongodb://localhost"
     single {
-        KMongo.createClient()
+        KMongo.createClient(clientConnection)
             .coroutine
             .getDatabase(DATABASE_NAME)
     }
