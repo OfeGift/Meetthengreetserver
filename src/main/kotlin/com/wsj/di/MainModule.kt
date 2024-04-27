@@ -12,10 +12,9 @@ import org.koin.dsl.module
 
 val mainModule = module {
 //    val clientConnection = "mongodb://mongodb:27017" //Default without docker is -> "mongodb://localhost"
-    val mongoPw = System.getenv("MONGO_PW")
-    val clientConnection = "mongodb+srv://ofegift22:$mongoPw@meetthengreet-cluster.rbrnjf6.mongodb.net/?retryWrites=true&w=majority&appName=Meetthengreet-cluster"
+    val mongoPw = System.getenv("MONGO_URI")
     single {
-        MongoClient.create(clientConnection)
+        MongoClient.create(mongoPw)
             .getDatabase(DATABASE_NAME)
     }
 
