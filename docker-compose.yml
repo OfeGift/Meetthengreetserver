@@ -9,8 +9,8 @@ services:
 #    platform: linux/amd64
     restart: always
     container_name: mongodb-container
-    ports:
-      - "27017:27017"
+#    ports:
+#      - "27017:27017"
     volumes:
       - mongodb:/data/db
 
@@ -25,10 +25,9 @@ services:
     environment:
       PORT: 8080
       MONGODB_HOST: mongodb
-      MONGODB_URI: mongodb://mongodb:27017
+      MONGODB_URI: "mongodb+srv://ofegift22:${MONGO_PW}@meetthengreet-cluster.rbrnjf6.mongodb.net/?retryWrites=true&w=majority&appName=Meetthengreet-cluster"
       DB_NAME: meet_then_greet
       NAME: WSJmain
-      JWT_SECRET: wsjmeetthegreet
     depends_on:
       - mongodb
 

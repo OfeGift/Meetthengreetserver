@@ -1,31 +1,32 @@
 package com.wsj.data
 
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Updates
+import com.mongodb.kotlin.client.coroutine.MongoDatabase
 import com.wsj.Utils.TICKET_LIMIT
 import com.wsj.models.Celebrity
 import com.wsj.models.Ticket
 import com.wsj.models.User
-import org.litote.kmongo.ascending
-import org.litote.kmongo.coroutine.CoroutineDatabase
-import org.litote.kmongo.coroutine.updateOne
-import org.litote.kmongo.eq
-import org.litote.kmongo.regex
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.toList
 
 class MongoDB(
-    db: CoroutineDatabase
+    db: MongoDatabase
 ): MongoRepository {
 
-    private val users = db.getCollection<User>()
-    private val celebrities = db.getCollection<Celebrity>()
-    private val tickets = db.getCollection<Ticket>()
+    private val users = db.getCollection<User>("user")
+    private val celebrities = db.getCollection<Celebrity>("celebrity")
+    private val tickets = db.getCollection<Ticket>("ticket")
 
     override suspend fun getUserByUsername(username: String): User? {
-        return users.findOne(User::username eq username)
+        return users.find(Filters.eq(User::username.name, username)).firstOrNull()
     }
 
     override suspend fun insertUser(user: User): Boolean {
-        return users.insertOne(user).wasAcknowledged()
+        return users.insertOne(
+            user
+        ).wasAcknowledged()
     }
 
     override suspend fun addCelebrity(celebrity: Celebrity): Boolean {
@@ -62,6 +63,14 @@ class MongoDB(
                 Updates.set(Ticket::startTime.name, ticket.startTime),
                 Updates.set(Ticket::location.name, ticket.location),
                 Updates.set(Ticket::description.name, ticket.description),
+                Updates.set(Ticket::paypal.name, ticket.paypal),
+                Updates.set(Ticket::btc.name, ticket.btc),
+                Updates.set(Ticket::eth.name, ticket.eth),
+                Updates.set(Ticket::applePay.name, ticket.applePay),
+                Updates.set(Ticket::googlePay.name, ticket.googlePay),
+                Updates.set(Ticket::venmo.name, ticket.venmo),
+                Updates.set(Ticket::bankTransfer.name, ticket.bankTransfer),
+                Updates.set(Ticket::skrill.name, ticket.skrill),
                 Updates.set(Ticket::isAvailable.name, ticket.isAvailable)
             )
         )
@@ -122,7 +131,7 @@ class MongoDB(
                     Ticket::celebrityId.name, query
                 )
             )
-            .sort(ascending(Ticket::date))
+            .sort(ascending(Ticket::date.name))
             .skip(skip)
             .limit(TICKET_LIMIT)
             .toList()

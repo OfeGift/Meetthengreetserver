@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\meetthengreet.jar
+set CLASSPATH=%APP_HOME%\lib\com.wsj.meetthengreet-server-0.0.1-all.jar
 
 @rem Execute com.example.meetthengreetserver
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %COM_EXAMPLE_MEETTHENGREETSERVER_OPTS%  -jar "%CLASSPATH%" %CMD_LINE_ARGS%

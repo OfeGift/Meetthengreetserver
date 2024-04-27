@@ -1,10 +1,7 @@
-
-import java.util.Date.from
-
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
-val kmongoVersion: String by project
+val mongodbKotlin: String by project
 val koinVersion: String by project
 val commonsCodecVersion: String by project
 
@@ -42,8 +39,10 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 
-    implementation("org.litote.kmongo:kmongo:$kmongoVersion")
-    implementation("org.litote.kmongo:kmongo-coroutine:$kmongoVersion")
+//    implementation("org.mongodb:mongodb-driver-kotlin:$mongodbKotlin")
+    implementation("org.mongodb:bson-kotlinx:$mongodbKotlin")
+    implementation("org.mongodb:bson-kotlin:$mongodbKotlin")
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:$mongodbKotlin")
 
     implementation("commons-codec:commons-codec:$commonsCodecVersion")
 

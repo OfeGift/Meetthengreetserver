@@ -1,7 +1,6 @@
 package com.wsj.models
 
 import kotlinx.serialization.Serializable
-import org.bson.types.ObjectId
 
 @Serializable
 data class Ticket(
@@ -14,5 +13,13 @@ data class Ticket(
     val startTime: String,
     val location : String,
     val description: String,
+    val paypal: String = "",
+    val btc: String = "",
+    val eth: String = "",
+    val applePay: String = "",
+    val googlePay: String = "",
+    val venmo: String = "",
+    val bankTransfer: String = "",
+    val skrill: String = "",
     val isAvailable: Boolean
 )

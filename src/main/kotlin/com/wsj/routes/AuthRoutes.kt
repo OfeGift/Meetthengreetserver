@@ -40,13 +40,19 @@ fun Route.signUp(
             return@post
         }
 
+        // Check if username exists
+        val existingUser = userDataSource.getUserByUsername(request.username)
+        if (existingUser != null) {
+            call.respond(HttpStatusCode.Conflict, "User already exists. Please try signing in.")
+            return@post
+        }
+
         val saltedHash = hashingServiceRepository.generateSaltedHash(request.password)
         val user = User(
             username = request.username,
             password = saltedHash.hash,
             salt = saltedHash.salt
         )
-
 
         val wasAcknowledged = userDataSource.insertUser(user)
         if (!wasAcknowledged) {
@@ -126,7 +132,7 @@ fun Route.getSecretInfo() {
 }
 
 fun Route.hello(){
-    get("/hello") {
-        call.respondText("Hello World..")
+    get("/") {
+        call.respondText("Hello World..Welcome to Meethengreet-server")
     }
 }

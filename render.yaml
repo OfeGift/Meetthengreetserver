@@ -18,13 +18,11 @@ services:
       - key: MONGODB_HOST
         value: mongodb
       - key: MONGODB_URI
-        value: mongodb://mongodb:27017
+        value: "mongodb+srv://ofegift22:${MONGO_PW}Pw@meetthengreet-cluster.rbrnjf6.mongodb.net/?retryWrites=true&w=majority&appName=Meetthengreet-cluster"
       - key: DB_NAME
         value: meet_then_greet
       - key: NAME
         value: WSJmain
-      - key: JWT_SECRET
-        value: wsjmeetthegreet
     image: "ofegift/meetthengreet-main:0.1.2"
     instanceType: AUTO
     plan: starter
