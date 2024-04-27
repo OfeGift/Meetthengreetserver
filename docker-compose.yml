@@ -24,8 +24,6 @@ services:
       - "8080:8080"
     environment:
       PORT: 8080
-      MONGODB_HOST: mongodb
-      MONGODB_URI: "mongodb+srv://ofegift22:${MONGO_PW}@meetthengreet-cluster.rbrnjf6.mongodb.net/?retryWrites=true&w=majority&appName=Meetthengreet-cluster"
       DB_NAME: meet_then_greet
       NAME: WSJmain
     depends_on:

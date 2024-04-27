@@ -133,6 +133,6 @@ fun Route.getSecretInfo() {
 
 fun Route.hello(){
     get("/") {
-        call.respondText("Hello World..Welcome to Meethengreet-server")
+        call.respondText("Hello!..Welcome to Meetthengreet-server.")
     }
 }
