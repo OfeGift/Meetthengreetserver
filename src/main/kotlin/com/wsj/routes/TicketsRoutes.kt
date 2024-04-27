@@ -40,8 +40,9 @@ fun Route.getAllTickets(
 ) {
     get ("/getalltickets"){
         try {
+            val skip = call.parameters[SKIP_PARAM]?.toInt() ?: 0
             val tickets = mongoRepository.getAllTickets(
-                skip = SKIP_PARAM.toInt()
+                skip = skip
             )
             call.respond(HttpStatusCode.OK, tickets)
         } catch (e: Exception) {

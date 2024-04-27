@@ -39,8 +39,9 @@ fun Route.getAllCelebrity(
 ) {
     get ("/getcelebrities"){
         try {
+            val skip = call.parameters[SKIP_PARAM]?.toInt() ?: 0
             val celebrities = mongoRepository.getAllCelebrities(
-                skip = SKIP_PARAM.toInt()
+                skip = skip
             )
             call.respond(HttpStatusCode.OK, celebrities)
         }catch (e: Exception) {
